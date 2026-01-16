@@ -1,6 +1,6 @@
 package com.javarush.jira.login.internal.web;
 
-import com.javarush.jira.AbstractControllerTest;
+import com.javarush.jira.BaseTestcontainerTest;
 import com.javarush.jira.login.Role;
 import com.javarush.jira.login.User;
 import com.javarush.jira.login.internal.UserRepository;
@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class AdminUserControllerTest extends AbstractControllerTest {
+class AdminUserControllerTest extends BaseTestcontainerTest {
 
     private static final String REST_URL_SLASH = REST_URL + '/';
 
