@@ -1,6 +1,6 @@
 package com.javarush.jira.bugtracking.task;
 
-import com.javarush.jira.AbstractControllerTest;
+import com.javarush.jira.BaseIntegrationTest;
 import com.javarush.jira.bugtracking.UserBelongRepository;
 import com.javarush.jira.bugtracking.task.to.ActivityTo;
 import com.javarush.jira.bugtracking.task.to.TaskToExt;
@@ -16,8 +16,8 @@ import static com.javarush.jira.bugtracking.ObjectType.TASK;
 import static com.javarush.jira.bugtracking.task.TaskController.REST_URL;
 import static com.javarush.jira.bugtracking.task.TaskService.CANNOT_ASSIGN;
 import static com.javarush.jira.bugtracking.task.TaskService.CANNOT_UN_ASSIGN;
-import static com.javarush.jira.bugtracking.task.TaskTestData.NOT_FOUND;
 import static com.javarush.jira.bugtracking.task.TaskTestData.*;
+import static com.javarush.jira.bugtracking.task.TaskTestData.NOT_FOUND;
 import static com.javarush.jira.common.util.JsonUtil.writeValue;
 import static com.javarush.jira.login.internal.web.UserTestData.*;
 import static org.hamcrest.Matchers.is;
@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-class TaskControllerTest extends AbstractControllerTest {
+class TaskControllerTest extends BaseIntegrationTest {
     private static final String TASKS_REST_URL_SLASH = REST_URL + "/";
     private static final String TASKS_BY_PROJECT_REST_URL = REST_URL + "/by-project";
     private static final String TASKS_BY_SPRINT_REST_URL = REST_URL + "/by-sprint";

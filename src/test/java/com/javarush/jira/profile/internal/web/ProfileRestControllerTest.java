@@ -1,8 +1,8 @@
 package com.javarush.jira.profile.internal.web;
 
-import com.javarush.jira.AbstractControllerTest;
+import com.javarush.jira.BaseIntegrationTest;
 
 
-class ProfileRestControllerTest extends AbstractControllerTest {
+class ProfileRestControllerTest extends BaseIntegrationTest {
 
 }

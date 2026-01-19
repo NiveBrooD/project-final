@@ -1,6 +1,6 @@
 package com.javarush.jira.login.internal.web;
 
-import com.javarush.jira.AbstractControllerTest;
+import com.javarush.jira.BaseIntegrationTest;
 import com.javarush.jira.login.UserTo;
 import com.javarush.jira.login.internal.verification.ConfirmData;
 import org.junit.jupiter.api.Test;
@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-class RegisterControllerTest extends AbstractControllerTest {
+class RegisterControllerTest extends BaseIntegrationTest {
 
     @Test
     void showRegisterPage() throws Exception {
