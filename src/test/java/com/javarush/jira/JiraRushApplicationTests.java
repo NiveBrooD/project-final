@@ -2,7 +2,7 @@ package com.javarush.jira;
 
 import org.junit.jupiter.api.Test;
 
-class JiraRushApplicationTests extends BaseTests {
+class JiraRushApplicationTests extends BaseIntegrationTest {
     @Test
     void contextLoads() {
     }
