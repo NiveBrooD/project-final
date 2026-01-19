@@ -1,6 +1,6 @@
 package com.javarush.jira.bugtracking.sprint;
 
-import com.javarush.jira.BaseTestcontainerTest;
+import com.javarush.jira.AbstractControllerTest;
 import com.javarush.jira.bugtracking.sprint.to.SprintTo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,8 +9,8 @@ import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static com.javarush.jira.bugtracking.sprint.SprintTestData.*;
 import static com.javarush.jira.bugtracking.sprint.SprintTestData.NOT_FOUND;
+import static com.javarush.jira.bugtracking.sprint.SprintTestData.*;
 import static com.javarush.jira.common.BaseHandler.REST_URL;
 import static com.javarush.jira.common.util.JsonUtil.writeValue;
 import static com.javarush.jira.login.internal.web.UserTestData.*;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-class SprintControllerTest extends BaseTestcontainerTest {
+class SprintControllerTest extends AbstractControllerTest {
     private static final String SPRINTS_REST_URL = REST_URL + "/sprints/";
     private static final String SPRINTS_BY_PROJECT_REST_URL = SPRINTS_REST_URL + "by-project";
     private static final String SPRINTS_BY_PROJECT_AND_STATUS_REST_URL = SPRINTS_REST_URL + "by-project-and-status";

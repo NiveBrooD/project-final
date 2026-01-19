@@ -1,6 +1,6 @@
 package com.javarush.jira.login.internal.web;
 
-import com.javarush.jira.BaseTestcontainerTest;
+import com.javarush.jira.AbstractControllerTest;
 import com.javarush.jira.login.User;
 import com.javarush.jira.login.UserTo;
 import com.javarush.jira.login.internal.UserMapper;
@@ -23,7 +23,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class UserControllerTest extends BaseTestcontainerTest {
+class UserControllerTest extends AbstractControllerTest {
 
     @Autowired
     UserMapper mapper;

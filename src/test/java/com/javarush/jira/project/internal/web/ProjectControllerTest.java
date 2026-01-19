@@ -1,6 +1,6 @@
 package com.javarush.jira.project.internal.web;
 
-import com.javarush.jira.BaseTestcontainerTest;
+import com.javarush.jira.AbstractControllerTest;
 import com.javarush.jira.bugtracking.project.Project;
 import com.javarush.jira.bugtracking.project.ProjectRepository;
 import com.javarush.jira.common.BaseHandler;
@@ -19,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class ProjectControllerTest extends BaseTestcontainerTest {
+public class ProjectControllerTest extends AbstractControllerTest {
     private static final String REST_URL_PROJECT = BaseHandler.REST_URL + "/projects";
     private static final String REST_URL_MNGR_PROJECT = BaseHandler.REST_URL + "/mngr/projects";
 
