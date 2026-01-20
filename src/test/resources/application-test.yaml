@@ -4,3 +4,6 @@ spring:
     mode: always
   datasource:
     driver-class-name: org.postgresql.Driver
+    username: jira
+    password: JiraRush
+    url: jdbc:postgresql://localhost:5433/jira-test
