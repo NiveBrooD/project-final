@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.Duration;
 import java.util.List;
 
 import static com.javarush.jira.bugtracking.task.TaskUtil.getLatestValue;
@@ -23,6 +24,53 @@ public class ActivityService {
         if (activity.getAuthorId() != AuthUser.authId()) {
             throw new DataConflictException("Activity " + activity.getId() + " doesn't belong to " + AuthUser.get());
         }
+    }
+
+    //Сколько задача находилась в работе (ready_for_review минус in_progress ).
+    public Duration howLongWasInProgress(Long taskId) {
+        List<Activity> activities = handler.getRepository().findAllByTaskIdOrderByUpdatedDesc(taskId);
+        Activity inProgress = activities.stream()
+                .filter(activity -> "in_progress".equals(activity.getStatusCode()))
+                .findFirst()
+                .orElseThrow(() ->
+                        new DataConflictException("Task was never in progress"));
+
+        Activity readyForReview = activities.stream()
+                .filter(activity -> "ready_for_review".equals(activity.getStatusCode()))
+                .findFirst()
+                .orElseThrow(() ->
+                        new DataConflictException("Task was never ready for review"));
+
+        if (inProgress.getUpdated() == null || readyForReview.getUpdated() == null) {
+            throw new DataConflictException("Activity timestamps are not initialized");
+        }
+        if (readyForReview.getUpdated().isBefore(inProgress.getUpdated())) {
+            throw new DataConflictException("Invalid activity order for task " + taskId);
+        }
+        return Duration.between(inProgress.getUpdated(), readyForReview.getUpdated());
+    }
+
+    //Сколько задача находилась на тестировании (done минус ready_for_review).
+    public Duration howLongWasInTesting(Long taskId) {
+        List<Activity> activities = handler.getRepository().findAllByTaskIdOrderByUpdatedDesc(taskId);
+        Activity readyForReview = activities.stream()
+                .filter(activity -> "ready_for_review".equals(activity.getStatusCode()))
+                .findFirst()
+                .orElseThrow(() ->
+                        new DataConflictException("Task was never ready for review"));
+        Activity finished = activities.stream()
+                .filter(activity -> "done".equals(activity.getStatusCode()))
+                .findFirst()
+                .orElseThrow(() ->
+                        new DataConflictException("Task was never done"));
+
+        if (readyForReview.getUpdated() == null || finished.getUpdated() == null) {
+            throw new DataConflictException("Activity timestamps are not initialized");
+        }
+        if (finished.getUpdated().isBefore(readyForReview.getUpdated())) {
+            throw new DataConflictException("Invalid activity order for task " + taskId);
+        }
+        return Duration.between(readyForReview.getUpdated(), finished.getUpdated());
     }
 
     @Transactional
