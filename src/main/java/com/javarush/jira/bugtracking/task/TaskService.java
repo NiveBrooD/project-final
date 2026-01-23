@@ -7,6 +7,7 @@ import com.javarush.jira.bugtracking.sprint.Sprint;
 import com.javarush.jira.bugtracking.sprint.SprintRepository;
 import com.javarush.jira.bugtracking.task.mapper.TaskExtMapper;
 import com.javarush.jira.bugtracking.task.mapper.TaskFullMapper;
+import com.javarush.jira.bugtracking.task.to.TagTo;
 import com.javarush.jira.bugtracking.task.to.TaskToExt;
 import com.javarush.jira.bugtracking.task.to.TaskToFull;
 import com.javarush.jira.common.error.DataConflictException;
@@ -20,7 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import static com.javarush.jira.bugtracking.ObjectType.TASK;
 import static com.javarush.jira.bugtracking.task.TaskUtil.fillExtraFields;
@@ -139,5 +141,56 @@ public class TaskService {
         if (!userType.equals(possibleUserType)) {
             throw new DataConflictException(String.format(assign ? CANNOT_ASSIGN : CANNOT_UN_ASSIGN, userType, task.getStatusCode()));
         }
+    }
+
+    private TagTo extractTags(Task task) {
+        if (task.getTags() == null || task.getTags().isEmpty()) {
+            return new TagTo(Collections.emptySet());
+        }
+        return new TagTo(task.getTags());
+    }
+
+    @Transactional(readOnly = true)
+    public TagTo getTags(Long taskId) {
+        Task task = handler.getRepository().getExisted(taskId);
+        return extractTags(task);
+    }
+
+    @Transactional
+    public void replaceTags(Long taskId, TagTo tagTo) {
+        Task task = handler.getRepository().getExisted(taskId);
+        task.setTags(normalizeTags(tagTo.getTags()));
+    }
+
+    @Transactional
+    public void addTags(Long taskId, TagTo tagTo) {
+        Task task = handler.getRepository().getExisted(taskId);
+        Set<String> tags = task.getTags();
+        if (tags == null) {
+            tags = new HashSet<>();
+            task.setTags(tags);
+        }
+        tags.addAll(normalizeTags(tagTo.getTags()));
+    }
+
+    @Transactional
+    public void clearTags(Long taskId) {
+        Task task = handler.getRepository().getExisted(taskId);
+        Set<String> tags = task.getTags();
+        if (tags != null) {
+            tags.clear();
+        } else
+            task.setTags(new HashSet<>());
+    }
+
+    private Set<String> normalizeTags(Set<String> tags) {
+        if (tags == null) return Collections.emptySet();
+
+        return tags.stream()
+                .filter(Objects::nonNull)
+                .map(String::trim)
+                .filter(tag -> !tag.isEmpty())
+                .map(String::toLowerCase)
+                .collect(Collectors.toSet());
     }
 }
