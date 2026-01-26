@@ -1,7 +1,7 @@
 #  https://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 app:
   host-url: http://localhost:8080
-  test-mail: jira4jr@gmail.com
+  test-mail: ramist4jr@gmail.com
   templates-update-cache: 5s
   mail-sending-props:
     core-pool-size: 8
@@ -111,8 +111,8 @@ spring:
             enable: true
           auth: true
     host: smtp.gmail.com
-    username: jira4jr@gmail.com
-    password: zdfzsrqvgimldzyj
+    username: ramist4jr@gmail.com
+    password: keosdsdvkcbkqeoe
     port: 587
   thymeleaf.check-template-location: false
 
