@@ -52,7 +52,7 @@ spring:
       client:
         registration:
           github:
-            client-id: Ov23li1vRbEW9L5qj7r4
+            client-id: ${CLIENT_ID_GITHUB}
             client-secret: ${CLIENT_SECRET_GITHUB}
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             client-name: GitHub
@@ -61,19 +61,19 @@ spring:
               - user:email
               - read:user
           google:
-            client-id: 413028536182-oe55n414gtnga6a95fosu4vfrombl3vm.apps.googleusercontent.com
+            client-id: ${CLIENT_ID_GOOGLE}
             client-secret: ${CLIENT_SECRET_GOOGLE}
             scope:
               - email
               - profile
           yandex:
-            client-id: 2f3395214ba84075956b76a34b231985
+            client-id: ${CLIENT_ID_YANDEX}
             client-secret: ${CLIENT_SECRET_YANDEX}
             client-name: Yandex
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
             authorization-grant-type: authorization_code
           gitlab:
-            client-id: b8520a3266089063c0d8261cce36971defa513f5ffd9f9b7a3d16728fc83a494
+            client-id: ${CLIENT_ID_GITLAB}
             client-secret: ${CLIENT_SECRET_GITLAB}
             client-name: GitLab
             redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
